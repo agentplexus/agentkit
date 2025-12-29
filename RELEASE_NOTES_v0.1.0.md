@@ -1,6 +1,6 @@
 # AgentKit v0.1.0 Release Notes
 
-**Release Date:** December 2024
+**Release Date:** December 29, 2025
 
 AgentKit is a Go library for building AI agent applications. This initial release provides server factories, LLM abstractions, workflow orchestration, and multi-runtime deployment support.
 
