@@ -43,16 +43,14 @@ func LoadSecureConfig(ctx context.Context, opts ...SecureConfigOption) (*SecureC
 	}
 
 	// Load sensitive credentials from secure vault
-	if err := sc.loadSecureCredentials(ctx); err != nil {
-		_ = sv.Close()
-		return nil, err
-	}
+	sc.loadSecureCredentials(ctx)
 
 	return sc, nil
 }
 
 // loadSecureCredentials loads API keys from the secure vault.
-func (sc *SecureConfig) loadSecureCredentials(ctx context.Context) error {
+// Missing credentials are silently skipped as they are optional.
+func (sc *SecureConfig) loadSecureCredentials(ctx context.Context) {
 	// Load LLM API key if not set
 	if sc.LLMAPIKey == "" {
 		key, err := sc.GetCredential(ctx, "LLM_API_KEY")
@@ -118,8 +116,6 @@ func (sc *SecureConfig) loadSecureCredentials(ctx context.Context) error {
 			sc.LLMAPIKey = sc.XAIAPIKey
 		}
 	}
-
-	return nil
 }
 
 // GetCredential retrieves a credential from the secure vault.
