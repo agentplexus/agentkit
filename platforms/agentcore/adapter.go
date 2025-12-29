@@ -11,9 +11,9 @@ import (
 // ExecutorAdapter wraps an AgentKit Executor to implement the Agent interface.
 // This allows Eino-based workflows to run on AgentCore without modification.
 type ExecutorAdapter[I, O any] struct {
-	name       string
-	executor   *orchestration.Executor[I, O]
-	parseInput func(prompt string) (I, error)
+	name         string
+	executor     *orchestration.Executor[I, O]
+	parseInput   func(prompt string) (I, error)
 	formatOutput func(output O) string
 }
 

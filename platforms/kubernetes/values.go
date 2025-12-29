@@ -12,17 +12,17 @@ import (
 
 // Values represents the complete Helm chart values structure for an agent deployment.
 type Values struct {
-	Global             GlobalConfig         `yaml:"global" validate:"required"`
-	Namespace          NamespaceConfig      `yaml:"namespace" validate:"required"`
-	LLM                LLMConfig            `yaml:"llm" validate:"required"`
-	Search             SearchConfig         `yaml:"search"`
-	Secrets            SecretsConfig        `yaml:"secrets"`
+	Global             GlobalConfig           `yaml:"global" validate:"required"`
+	Namespace          NamespaceConfig        `yaml:"namespace" validate:"required"`
+	LLM                LLMConfig              `yaml:"llm" validate:"required"`
+	Search             SearchConfig           `yaml:"search"`
+	Secrets            SecretsConfig          `yaml:"secrets"`
 	Agents             map[string]AgentConfig `yaml:"agents"`
-	Ingress            IngressConfig        `yaml:"ingress"`
-	ServiceAccount     ServiceAccountConfig `yaml:"serviceAccount"`
-	PodSecurityContext PodSecurityContext   `yaml:"podSecurityContext"`
-	SecurityContext    SecurityContext      `yaml:"securityContext"`
-	VaultGuard         VaultGuardConfig     `yaml:"vaultguard"`
+	Ingress            IngressConfig          `yaml:"ingress"`
+	ServiceAccount     ServiceAccountConfig   `yaml:"serviceAccount"`
+	PodSecurityContext PodSecurityContext     `yaml:"podSecurityContext"`
+	SecurityContext    SecurityContext        `yaml:"securityContext"`
+	VaultGuard         VaultGuardConfig       `yaml:"vaultguard"`
 }
 
 // GlobalConfig contains global settings for all agents.
@@ -96,14 +96,14 @@ type AgentConfig struct {
 
 // EnvVar defines an environment variable.
 type EnvVar struct {
-	Name  string `yaml:"name" validate:"required"`
-	Value string `yaml:"value"`
+	Name      string        `yaml:"name" validate:"required"`
+	Value     string        `yaml:"value"`
 	ValueFrom *EnvVarSource `yaml:"valueFrom,omitempty"`
 }
 
 // EnvVarSource defines the source of an environment variable value.
 type EnvVarSource struct {
-	SecretKeyRef *SecretKeyRef `yaml:"secretKeyRef,omitempty"`
+	SecretKeyRef    *SecretKeyRef    `yaml:"secretKeyRef,omitempty"`
 	ConfigMapKeyRef *ConfigMapKeyRef `yaml:"configMapKeyRef,omitempty"`
 }
 
@@ -235,10 +235,10 @@ type Capabilities struct {
 
 // VaultGuardConfig defines VaultGuard security settings.
 type VaultGuardConfig struct {
-	Enabled           bool   `yaml:"enabled"`
-	MinSecurityScore  int    `yaml:"minSecurityScore" validate:"omitempty,min=0,max=100"`
-	RequireEncryption bool   `yaml:"requireEncryption"`
-	RequireIAM        bool   `yaml:"requireIam"`
+	Enabled           bool     `yaml:"enabled"`
+	MinSecurityScore  int      `yaml:"minSecurityScore" validate:"omitempty,min=0,max=100"`
+	RequireEncryption bool     `yaml:"requireEncryption"`
+	RequireIAM        bool     `yaml:"requireIam"`
 	DeniedNamespaces  []string `yaml:"deniedNamespaces"`
 }
 
