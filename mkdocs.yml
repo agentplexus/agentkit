@@ -1,0 +1,71 @@
+site_name: AgentKit
+site_description: A Go library for building AI agent applications
+site_url: https://agentplexus.github.io/agentkit
+repo_url: https://github.com/agentplexus/agentkit
+repo_name: agentplexus/agentkit
+
+docs_dir: docsrc
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Local Development: getting-started/local-development.md
+  - Server Factories:
+    - Overview: server-factories/index.md
+    - A2A Server: server-factories/a2a.md
+    - HTTP Server: server-factories/httpserver.md
+  - Platforms:
+    - Overview: platforms/index.md
+    - Kubernetes: platforms/kubernetes.md
+    - AWS AgentCore: platforms/agentcore.md
+  - Packages:
+    - config: packages/config.md
+    - llm: packages/llm.md
+    - agent: packages/agent.md
+    - orchestration: packages/orchestration.md
+    - http: packages/http.md
+  - Migration Guide: migration.md
+  - Benefits: benefits.md
