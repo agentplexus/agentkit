@@ -10,11 +10,11 @@ A Go library for building AI agent applications. Provides server factories, LLM 
 
 ## Features
 
-- **Server Factories** - A2A and HTTP servers in 5 lines (saves ~475 lines per project)
-- **Multi-Provider LLM** - Gemini, Claude, OpenAI, xAI, Ollama via OmniLLM
-- **Workflow Orchestration** - Type-safe graph-based execution with Eino
-- **Multi-Runtime Deployment** - Kubernetes (Helm) or AWS AgentCore
-- **VaultGuard Integration** - Security-gated credential access
+- 🏭 **Server Factories** - A2A and HTTP servers in 5 lines (saves ~475 lines per project)
+- 🧠 **Multi-Provider LLM** - Gemini, Claude, OpenAI, xAI, Ollama via OmniLLM
+- 🔀 **Workflow Orchestration** - Type-safe graph-based execution with Eino
+- ☁️ **Multi-Runtime Deployment** - Kubernetes (Helm) or AWS AgentCore
+- 🔒 **VaultGuard Integration** - Security-gated credential access
 
 ## Architecture
 
