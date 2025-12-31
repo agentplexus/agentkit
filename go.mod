@@ -6,7 +6,7 @@ require (
 	github.com/a2aproject/a2a-go v0.3.3
 	github.com/agentplexus/omnillm v0.9.0
 	github.com/agentplexus/omniobserve v0.4.0
-	github.com/agentplexus/vaultguard v0.1.0
+	github.com/agentplexus/vaultguard v0.2.0
 	github.com/cloudwego/eino v0.7.15
 	github.com/go-playground/validator/v10 v10.30.1
 	google.golang.org/adk v0.3.0
