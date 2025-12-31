@@ -8,7 +8,7 @@ This release adds Infrastructure-as-Code (IaC) support for AWS Bedrock AgentCore
 
 - **IaC configuration in core** - Shared config structs for CDK, Pulumi, and CloudFormation
 - **Pure CloudFormation generation** - Deploy without CDK/Pulumi runtime dependencies
-- **New companion modules** - `agentkit-aws` (CDK) and `agentkit-pulumi-aws` (Pulumi)
+- **New companion modules** - `agentkit-aws-cdk` (CDK) and `agentkit-aws-pulumi` (Pulumi)
 - **AWS deployment guide** - Comprehensive documentation for AWS deployment options
 
 ## New Features
@@ -91,16 +91,16 @@ New comprehensive guide at `docs/aws-deployment-guide.md` covering:
 
 ## Companion Modules
 
-### agentkit-aws (CDK)
+### agentkit-aws-cdk (CDK)
 
 AWS CDK constructs for AgentCore deployment:
 
 ```bash
-go get github.com/agentplexus/agentkit-aws
+go get github.com/agentplexus/agentkit-aws-cdk
 ```
 
 ```go
-import "github.com/agentplexus/agentkit-aws/agentcore"
+import "github.com/agentplexus/agentkit-aws-cdk/agentcore"
 
 app := agentcore.NewApp()
 agentcore.NewStackBuilder("my-agents").
@@ -112,16 +112,16 @@ agentcore.Synth(app)
 
 **Dependencies:** 21 transitive packages (CDK uses lightweight jsii bindings)
 
-### agentkit-pulumi-aws (Pulumi)
+### agentkit-aws-pulumi (Pulumi)
 
 Pulumi components for AgentCore deployment:
 
 ```bash
-go get github.com/agentplexus/agentkit-pulumi-aws
+go get github.com/agentplexus/agentkit-aws-pulumi
 ```
 
 ```go
-import "github.com/agentplexus/agentkit-pulumi-aws/agentcore"
+import "github.com/agentplexus/agentkit-aws-pulumi/agentcore"
 
 pulumi.Run(func(ctx *pulumi.Context) error {
     _, err := agentcore.NewStackBuilder("my-agents").
@@ -139,8 +139,8 @@ pulumi.Run(func(ctx *pulumi.Context) error {
 | Approach | Module | Dependencies | Runtime Required |
 |----------|--------|--------------|------------------|
 | **Pure CloudFormation** | `agentkit` only | 0 extra | AWS CLI only |
-| **CDK** | `agentkit-aws` | +21 | Node.js (jsii) |
-| **Pulumi** | `agentkit-pulumi-aws` | +340 | Pulumi CLI |
+| **CDK** | `agentkit-aws-cdk` | +21 | Node.js (jsii) |
+| **Pulumi** | `agentkit-aws-pulumi` | +340 | Pulumi CLI |
 
 All approaches share the same YAML/JSON configuration schema.
 
@@ -202,10 +202,10 @@ iac.GenerateCloudFormationFile(config, "template.yaml")
 go get github.com/agentplexus/agentkit
 
 # Optional: CDK support
-go get github.com/agentplexus/agentkit-aws
+go get github.com/agentplexus/agentkit-aws-cdk
 
 # Optional: Pulumi support
-go get github.com/agentplexus/agentkit-pulumi-aws
+go get github.com/agentplexus/agentkit-aws-pulumi
 ```
 
 ## License

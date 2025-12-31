@@ -20,14 +20,14 @@ AWS Bedrock AgentCore runs agents in Firecracker microVMs with automatic scaling
 
 | Approach | Module | Dependencies | Best For |
 |----------|--------|--------------|----------|
-| **CDK** | `agentkit-aws` | 21 | AWS-native teams, CDK users |
-| **Pulumi** | `agentkit-pulumi-aws` | 340 | Multi-cloud teams, Pulumi users |
+| **CDK** | `agentkit-aws-cdk` | 21 | AWS-native teams, CDK users |
+| **Pulumi** | `agentkit-aws-pulumi` | 340 | Multi-cloud teams, Pulumi users |
 | **CloudFormation** | `agentkit` only | 0 (just yaml.v3) | No IaC runtime, AWS CLI only |
 
 ### CDK Deployment
 
 ```go
-import "github.com/agentplexus/agentkit-aws/agentcore"
+import "github.com/agentplexus/agentkit-aws-cdk/agentcore"
 
 func main() {
     app := agentcore.NewApp()
@@ -48,7 +48,7 @@ cdk deploy
 ### Pulumi Deployment
 
 ```go
-import "github.com/agentplexus/agentkit-pulumi-aws/agentcore"
+import "github.com/agentplexus/agentkit-aws-pulumi/agentcore"
 
 func main() {
     pulumi.Run(func(ctx *pulumi.Context) error {
@@ -127,8 +127,8 @@ ECS with Fargate provides serverless containers without Kubernetes complexity. S
 
 ### Status
 
-- **Not yet implemented** in agentkit-aws or agentkit-pulumi-aws
-- Can be added to `agentkit-aws/ecs/` and `agentkit-pulumi-aws/ecs/` if needed
+- **Not yet implemented** in agentkit-aws-cdk or agentkit-aws-pulumi
+- Can be added to `agentkit-aws-cdk/ecs/` and `agentkit-aws-pulumi/ecs/` if needed
 
 ### When to Consider ECS
 
@@ -152,10 +152,10 @@ agentkit/                              # Core library
 │   └── kubernetes/
 │       └── values.go                  # Helm values structs
 
-agentkit-aws/                          # AWS CDK (21 deps)
+agentkit-aws-cdk/                          # AWS CDK (21 deps)
 └── agentcore/                         # AgentCore via CDK
 
-agentkit-pulumi-aws/                   # Pulumi AWS (340 deps)
+agentkit-aws-pulumi/                   # Pulumi AWS (340 deps)
 └── agentcore/                         # AgentCore via Pulumi
 ```
 
@@ -164,8 +164,8 @@ agentkit-pulumi-aws/                   # Pulumi AWS (340 deps)
 | Module | Dependencies | Rationale |
 |--------|--------------|-----------|
 | `agentkit` | ~40 | Core stays lean |
-| `agentkit-aws` | +21 | CDK uses jsii (lightweight) |
-| `agentkit-pulumi-aws` | +340 | Native Go Pulumi SDK |
+| `agentkit-aws-cdk` | +21 | CDK uses jsii (lightweight) |
+| `agentkit-aws-pulumi` | +340 | Native Go Pulumi SDK |
 
 Separate modules ensure users only pull dependencies for their chosen IaC tool.
 
@@ -227,6 +227,6 @@ Need to deploy agentkit agents to AWS?
 
 ## Related Documentation
 
-- [agentkit-aws README](https://github.com/agentplexus/agentkit-aws)
-- [agentkit-pulumi-aws README](https://github.com/agentplexus/agentkit-pulumi-aws)
+- [agentkit-aws-cdk README](https://github.com/agentplexus/agentkit-aws-cdk)
+- [agentkit-aws-pulumi README](https://github.com/agentplexus/agentkit-aws-pulumi)
 - [AWS Bedrock AgentCore Documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/agentcore.html)
