@@ -463,6 +463,28 @@ AgentKit eliminates ~1,500 lines of boilerplate per project:
 
 See [BENEFITS.md](BENEFITS.md) for detailed analysis.
 
+## Companion Modules
+
+AgentKit has companion modules for Infrastructure-as-Code (IaC) deployment:
+
+| Module | Purpose | Dependencies |
+|--------|---------|--------------|
+| [agentkit-aws-cdk](https://github.com/agentplexus/agentkit-aws-cdk) | AWS CDK constructs for AgentCore | 21 |
+| [agentkit-aws-pulumi](https://github.com/agentplexus/agentkit-aws-pulumi) | Pulumi components for AgentCore | 340 |
+
+All modules share the same YAML/JSON configuration schema from `platforms/agentcore/iac/`.
+
+For pure CloudFormation (no CDK/Pulumi runtime), use the built-in generator:
+
+```go
+import "github.com/agentplexus/agentkit/platforms/agentcore/iac"
+
+config, _ := iac.LoadStackConfigFromFile("config.yaml")
+iac.GenerateCloudFormationFile(config, "template.yaml")
+```
+
+See [ROADMAP.md](ROADMAP.md) for planned modules including Terraform support.
+
 ## Dependencies
 
 - [OmniLLM](https://github.com/agentplexus/omnillm) - Multi-provider LLM abstraction
