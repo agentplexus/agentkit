@@ -1,0 +1,38 @@
+{
+  "ir_version": "1.0",
+  "project": "agentkit",
+  "repository": "https://github.com/agentplexus/agentkit",
+  "releases": [
+    {
+      "version": "0.2.0",
+      "date": "2025-12-31",
+      "added": [
+        { "description": "IaC configuration package for AgentCore deployments" }
+      ],
+      "changed": [
+        { "description": "Bump `github.com/agentplexus/vaultguard` from 0.1.0 to 0.2.0", "component": "vaultguard", "version": "0.2.0" }
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "2025-12-29",
+      "added": [
+        { "description": "Initial release with core agent framework" },
+        { "description": "A2A protocol server factory" },
+        { "description": "HTTP server factory" },
+        { "description": "Multi-provider LLM abstraction (Gemini, Claude, OpenAI, xAI, Ollama)" },
+        { "description": "Eino workflow orchestration integration" },
+        { "description": "AWS Bedrock AgentCore runtime support" },
+        { "description": "Kubernetes + Helm deployment support" },
+        { "description": "VaultGuard credential management integration" },
+        { "description": "Configuration management utilities" }
+      ],
+      "changed": [
+        { "description": "Bump `github.com/cloudwego/eino` from 0.7.14 to 0.7.15", "component": "eino", "version": "0.7.15" }
+      ],
+      "fixed": [
+        { "description": "Remove unused error return from `loadSecureCredentials`" }
+      ]
+    }
+  ]
+}

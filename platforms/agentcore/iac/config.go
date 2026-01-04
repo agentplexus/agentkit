@@ -57,6 +57,31 @@ type AgentConfig struct {
 	// IsDefault marks this as the default agent for the stack.
 	// Only one agent should have IsDefault=true.
 	IsDefault bool `json:"isDefault,omitempty" yaml:"isDefault,omitempty"`
+
+	// Protocol is the communication protocol for the agent runtime.
+	// Supported: "HTTP", "MCP", "A2A"
+	// Default: "HTTP"
+	Protocol string `json:"protocol,omitempty" yaml:"protocol,omitempty"`
+
+	// Authorizer configures inbound authorization for the agent.
+	// Optional - if not set, no authorization is required.
+	Authorizer *AuthorizerConfig `json:"authorizer,omitempty" yaml:"authorizer,omitempty"`
+
+	// EnableMemory enables persistent memory for the agent.
+	// Default: false
+	EnableMemory bool `json:"enableMemory,omitempty" yaml:"enableMemory,omitempty"`
+}
+
+// AuthorizerConfig defines authorization configuration for an agent.
+type AuthorizerConfig struct {
+	// Type is the authorization type.
+	// Supported: "IAM", "LAMBDA", "NONE"
+	// Default: "NONE"
+	Type string `json:"type" yaml:"type"`
+
+	// LambdaARN is the ARN of the Lambda authorizer function.
+	// Required when Type is "LAMBDA".
+	LambdaARN string `json:"lambdaArn,omitempty" yaml:"lambdaArn,omitempty"`
 }
 
 // VPCConfig defines networking configuration for AgentCore deployment.
@@ -160,6 +185,24 @@ type IAMConfig struct {
 	BedrockModelIDs []string `json:"bedrockModelIds,omitempty" yaml:"bedrockModelIds,omitempty"`
 }
 
+// GatewayConfig defines configuration for a multi-agent gateway.
+type GatewayConfig struct {
+	// Enabled enables gateway creation.
+	// Default: false
+	Enabled bool `json:"enabled,omitempty" yaml:"enabled,omitempty"`
+
+	// Name is the gateway name.
+	// Default: "{stack-name}-gateway"
+	Name string `json:"name,omitempty" yaml:"name,omitempty"`
+
+	// Description is a description of the gateway.
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
+
+	// Targets is a list of agent names to route to.
+	// If empty, all agents in the stack are included.
+	Targets []string `json:"targets,omitempty" yaml:"targets,omitempty"`
+}
+
 // StackConfig defines the complete configuration for an AgentCore deployment stack.
 type StackConfig struct {
 	// StackName is the CloudFormation/CDK stack name.
@@ -188,6 +231,10 @@ type StackConfig struct {
 	// IAM configures IAM roles and policies.
 	// Optional - creates required roles automatically.
 	IAM *IAMConfig `json:"iam,omitempty" yaml:"iam,omitempty"`
+
+	// Gateway configures a multi-agent gateway for routing.
+	// Optional - only needed for multi-agent communication.
+	Gateway *GatewayConfig `json:"gateway,omitempty" yaml:"gateway,omitempty"`
 
 	// Tags are AWS resource tags applied to all resources.
 	Tags map[string]string `json:"tags,omitempty" yaml:"tags,omitempty"`
@@ -285,10 +332,52 @@ func (c *StackConfig) Validate() error {
 		if agent.TimeoutSeconds != 0 && (agent.TimeoutSeconds < 1 || agent.TimeoutSeconds > 900) {
 			return fmt.Errorf("agents[%d] (%s): timeoutSeconds must be between 1 and 900", i, agent.Name)
 		}
+
+		// Validate protocol
+		if agent.Protocol != "" {
+			validProtocols := []string{"HTTP", "MCP", "A2A"}
+			valid := false
+			for _, p := range validProtocols {
+				if agent.Protocol == p {
+					valid = true
+					break
+				}
+			}
+			if !valid {
+				return fmt.Errorf("agents[%d] (%s): protocol must be one of %v", i, agent.Name, validProtocols)
+			}
+		}
+
+		// Validate authorizer
+		if agent.Authorizer != nil {
+			validAuthTypes := []string{"IAM", "LAMBDA", "NONE"}
+			valid := false
+			for _, t := range validAuthTypes {
+				if agent.Authorizer.Type == t {
+					valid = true
+					break
+				}
+			}
+			if !valid {
+				return fmt.Errorf("agents[%d] (%s): authorizer.type must be one of %v", i, agent.Name, validAuthTypes)
+			}
+			if agent.Authorizer.Type == "LAMBDA" && agent.Authorizer.LambdaARN == "" {
+				return fmt.Errorf("agents[%d] (%s): authorizer.lambdaArn is required when type is LAMBDA", i, agent.Name)
+			}
+		}
 	}
 
 	if defaultCount > 1 {
 		return fmt.Errorf("only one agent can be marked as default")
+	}
+
+	// Validate gateway targets reference existing agents
+	if c.Gateway != nil && c.Gateway.Enabled && len(c.Gateway.Targets) > 0 {
+		for _, target := range c.Gateway.Targets {
+			if !agentNames[target] {
+				return fmt.Errorf("gateway target '%s' does not match any agent name", target)
+			}
+		}
 	}
 
 	if c.VPC != nil && c.VPC.VPCID != "" && len(c.VPC.SubnetIDs) == 0 {
@@ -344,6 +433,16 @@ func (c *StackConfig) ApplyDefaults() {
 		c.Tags["ManagedBy"] = "agentkit"
 	}
 
+	// Apply gateway defaults
+	if c.Gateway != nil && c.Gateway.Enabled {
+		if c.Gateway.Name == "" {
+			c.Gateway.Name = fmt.Sprintf("%s-gateway", c.StackName)
+		}
+		if c.Gateway.Description == "" {
+			c.Gateway.Description = fmt.Sprintf("Gateway for %s", c.StackName)
+		}
+	}
+
 	for i := range c.Agents {
 		if c.Agents[i].MemoryMB == 0 {
 			c.Agents[i].MemoryMB = 512
@@ -357,6 +456,9 @@ func (c *StackConfig) ApplyDefaults() {
 		if c.Agents[i].Environment == nil {
 			c.Agents[i].Environment = make(map[string]string)
 		}
+		if c.Agents[i].Protocol == "" {
+			c.Agents[i].Protocol = "HTTP"
+		}
 	}
 }
 
@@ -368,4 +470,14 @@ func ValidMemoryValues() []int {
 // ValidObservabilityProviders returns the list of valid observability providers.
 func ValidObservabilityProviders() []string {
 	return []string{"opik", "langfuse", "phoenix", "cloudwatch"}
+}
+
+// ValidProtocols returns the list of valid agent protocols.
+func ValidProtocols() []string {
+	return []string{"HTTP", "MCP", "A2A"}
+}
+
+// ValidAuthorizerTypes returns the list of valid authorizer types.
+func ValidAuthorizerTypes() []string {
+	return []string{"IAM", "LAMBDA", "NONE"}
 }
