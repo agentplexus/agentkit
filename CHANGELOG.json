@@ -4,6 +4,27 @@
   "repository": "https://github.com/agentplexus/agentkit",
   "releases": [
     {
+      "version": "0.3.0",
+      "date": "2026-01-04",
+      "added": [
+        { "description": "OmniVault integration for unified secret management (`config/omnivault.go`)" },
+        { "description": "Config file loading from JSON/YAML (`config/file.go`)" },
+        { "description": "`Load(ctx, LoadOptions)` function for unified config loading" },
+        { "description": "`SecretsClient` type with support for `env`, `aws-sm`, `aws-ssm`, `memory` providers" },
+        { "description": "Auto-detection of AWS environment (ECS, Lambda, EC2)" },
+        { "description": "`ConfigFile` struct for structured configuration from config.json" },
+        { "description": "`GetSecret(ctx, name)` method on Config for secret retrieval" },
+        { "description": "Protocol configuration for agents (`HTTP`, `MCP`, `A2A`)" },
+        { "description": "Authorization configuration (`AuthorizerConfig` type)" },
+        { "description": "Memory support for stateful agents (`EnableMemory` field)" },
+        { "description": "Gateway configuration for multi-agent routing (`GatewayConfig` type)" }
+      ],
+      "changed": [
+        { "description": "`SecureConfig` now supports OmniVault as primary secrets source" },
+        { "description": "Added `WithSecretsProvider()`, `WithAWSSecretsManager()`, `WithAutoSecretsProvider()` options" }
+      ]
+    },
+    {
       "version": "0.2.0",
       "date": "2025-12-31",
       "added": [

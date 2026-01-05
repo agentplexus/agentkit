@@ -53,6 +53,9 @@ nav:
     - Installation: getting-started/installation.md
     - Quick Start: getting-started/quick-start.md
     - Local Development: getting-started/local-development.md
+  - Configuration:
+    - Credentials: configuration/credentials.md
+    - Secrets Management: configuration/secrets.md
   - Server Factories:
     - Overview: server-factories/index.md
     - A2A Server: server-factories/a2a.md

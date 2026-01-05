@@ -6,6 +6,7 @@ require (
 	github.com/a2aproject/a2a-go v0.3.3
 	github.com/agentplexus/omnillm v0.9.0
 	github.com/agentplexus/omniobserve v0.4.0
+	github.com/agentplexus/omnivault v0.1.0
 	github.com/agentplexus/vaultguard v0.2.0
 	github.com/cloudwego/eino v0.7.17
 	github.com/go-playground/validator/v10 v10.30.1
@@ -19,7 +20,6 @@ require (
 	cloud.google.com/go/auth v0.18.0 // indirect
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	github.com/agentplexus/go-comet-ml-opik v0.3.0 // indirect
-	github.com/agentplexus/omnivault v0.1.0 // indirect
 	github.com/agentplexus/posture v0.2.0 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect

@@ -2,6 +2,15 @@
 
 This document outlines the development roadmap for agentkit and its companion modules.
 
+## Completed (v0.3.0)
+
+- [x] OmniVault integration for unified secret management
+- [x] Config file loading from JSON/YAML (`config/file.go`)
+- [x] `Load(ctx, LoadOptions)` unified config loading function
+- [x] Auto-detection of AWS environment (ECS, Lambda, EC2)
+- [x] Protocol configuration for agents (HTTP, MCP, A2A)
+- [x] Authorization and gateway configuration
+
 ## Completed (v0.2.0)
 
 - [x] IaC configuration package (`platforms/agentcore/iac/`)
@@ -55,5 +64,6 @@ Contributions are welcome! If you're interested in working on any roadmap item:
 
 - **v0.1.0** - Initial release with AgentCore runtime support
 - **v0.2.0** - IaC support (CDK, Pulumi, CloudFormation)
-- **v0.3.0** - Terraform modules (planned)
-- **v0.4.0** - ECS/Fargate support (planned)
+- **v0.3.0** - OmniVault integration, config file loading
+- **v0.4.0** - Terraform modules (planned)
+- **v0.5.0** - ECS/Fargate support (planned)

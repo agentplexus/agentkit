@@ -7,14 +7,17 @@ import (
 	"github.com/agentplexus/vaultguard"
 )
 
-// SecureConfig wraps Config with VaultGuard for secure credential access.
+// SecureConfig wraps Config with VaultGuard for secure credential access
+// and optionally integrates with OmniVault for unified secret management.
 type SecureConfig struct {
 	*Config
-	vault *vaultguard.SecureVault
+	vault   *vaultguard.SecureVault
+	secrets *SecretsClient
 }
 
 // LoadSecureConfig loads configuration with VaultGuard security checks.
 // It enforces security policies based on the environment (local or cloud).
+// Optionally integrates with OmniVault for unified secret management.
 func LoadSecureConfig(ctx context.Context, opts ...SecureConfigOption) (*SecureConfig, error) {
 	options := &secureConfigOptions{
 		policy: nil, // Use default policy
@@ -34,72 +37,76 @@ func LoadSecureConfig(ctx context.Context, opts ...SecureConfigOption) (*SecureC
 		return nil, fmt.Errorf("security check failed: %w", err)
 	}
 
+	// Create OmniVault secrets client if configured
+	var secrets *SecretsClient
+	if options.secretsConfig != nil {
+		secrets, err = NewSecretsClient(*options.secretsConfig)
+		if err != nil {
+			return nil, fmt.Errorf("creating secrets client: %w", err)
+		}
+	}
+
 	// Load base config
 	cfg := LoadConfig()
 
 	sc := &SecureConfig{
-		Config: cfg,
-		vault:  sv,
+		Config:  cfg,
+		vault:   sv,
+		secrets: secrets,
 	}
 
-	// Load sensitive credentials from secure vault
+	// Load sensitive credentials (OmniVault first, then VaultGuard fallback)
 	sc.loadSecureCredentials(ctx)
 
 	return sc, nil
 }
 
-// loadSecureCredentials loads API keys from the secure vault.
+// loadSecureCredentials loads API keys from OmniVault (if configured) or VaultGuard.
 // Missing credentials are silently skipped as they are optional.
+// Resolution order: OmniVault → VaultGuard → Environment variables
 func (sc *SecureConfig) loadSecureCredentials(ctx context.Context) {
 	// Load LLM API key if not set
 	if sc.LLMAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "LLM_API_KEY")
-		if err == nil && key != "" {
-			sc.LLMAPIKey = key
-		}
+		sc.LLMAPIKey = sc.getSecureValue(ctx, "LLM_API_KEY")
 	}
 
 	// Load provider-specific keys
 	if sc.GeminiAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "GEMINI_API_KEY")
-		if err == nil && key != "" {
-			sc.GeminiAPIKey = key
+		sc.GeminiAPIKey = sc.getSecureValue(ctx, "GEMINI_API_KEY")
+		if sc.GeminiAPIKey == "" {
+			sc.GeminiAPIKey = sc.getSecureValue(ctx, "GOOGLE_API_KEY")
 		}
 	}
 
 	if sc.ClaudeAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "CLAUDE_API_KEY")
-		if err == nil && key != "" {
-			sc.ClaudeAPIKey = key
+		sc.ClaudeAPIKey = sc.getSecureValue(ctx, "CLAUDE_API_KEY")
+		if sc.ClaudeAPIKey == "" {
+			sc.ClaudeAPIKey = sc.getSecureValue(ctx, "ANTHROPIC_API_KEY")
 		}
 	}
 
 	if sc.OpenAIAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "OPENAI_API_KEY")
-		if err == nil && key != "" {
-			sc.OpenAIAPIKey = key
-		}
+		sc.OpenAIAPIKey = sc.getSecureValue(ctx, "OPENAI_API_KEY")
 	}
 
 	if sc.XAIAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "XAI_API_KEY")
-		if err == nil && key != "" {
-			sc.XAIAPIKey = key
-		}
+		sc.XAIAPIKey = sc.getSecureValue(ctx, "XAI_API_KEY")
 	}
 
 	// Load search API keys
 	if sc.SerperAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "SERPER_API_KEY")
-		if err == nil && key != "" {
-			sc.SerperAPIKey = key
-		}
+		sc.SerperAPIKey = sc.getSecureValue(ctx, "SERPER_API_KEY")
 	}
 
 	if sc.SerpAPIKey == "" {
-		key, err := sc.GetCredential(ctx, "SERPAPI_API_KEY")
-		if err == nil && key != "" {
-			sc.SerpAPIKey = key
+		sc.SerpAPIKey = sc.getSecureValue(ctx, "SERPAPI_API_KEY")
+	}
+
+	// Load observability API key
+	if sc.ObservabilityAPIKey == "" {
+		sc.ObservabilityAPIKey = sc.getSecureValue(ctx, "OBSERVABILITY_API_KEY")
+		if sc.ObservabilityAPIKey == "" {
+			sc.ObservabilityAPIKey = sc.getSecureValue(ctx, "OPIK_API_KEY")
 		}
 	}
 
@@ -116,6 +123,23 @@ func (sc *SecureConfig) loadSecureCredentials(ctx context.Context) {
 			sc.LLMAPIKey = sc.XAIAPIKey
 		}
 	}
+}
+
+// getSecureValue retrieves a value from OmniVault first, then VaultGuard.
+func (sc *SecureConfig) getSecureValue(ctx context.Context, name string) string {
+	// Try OmniVault first if configured
+	if sc.secrets != nil {
+		if value, err := sc.secrets.Get(ctx, name); err == nil && value != "" {
+			return value
+		}
+	}
+
+	// Fall back to VaultGuard
+	if value, err := sc.GetCredential(ctx, name); err == nil && value != "" {
+		return value
+	}
+
+	return ""
 }
 
 // GetCredential retrieves a credential from the secure vault.
@@ -151,8 +175,19 @@ func (sc *SecureConfig) SecurityResult() *vaultguard.SecurityResult {
 
 // Close cleans up resources.
 func (sc *SecureConfig) Close() error {
+	var errs []error
+	if sc.secrets != nil {
+		if err := sc.secrets.Close(); err != nil {
+			errs = append(errs, err)
+		}
+	}
 	if sc.vault != nil {
-		return sc.vault.Close()
+		if err := sc.vault.Close(); err != nil {
+			errs = append(errs, err)
+		}
+	}
+	if len(errs) > 0 {
+		return errs[0]
 	}
 	return nil
 }
@@ -161,7 +196,8 @@ func (sc *SecureConfig) Close() error {
 type SecureConfigOption func(*secureConfigOptions)
 
 type secureConfigOptions struct {
-	policy *vaultguard.Policy
+	policy        *vaultguard.Policy
+	secretsConfig *SecretsConfig
 }
 
 // WithPolicy sets a custom security policy.
@@ -182,5 +218,35 @@ func WithDevPolicy() SecureConfigOption {
 func WithStrictPolicy() SecureConfigOption {
 	return func(o *secureConfigOptions) {
 		o.policy = vaultguard.StrictPolicy()
+	}
+}
+
+// WithSecretsProvider configures OmniVault as the secrets provider.
+// When set, secrets are loaded from OmniVault first, with fallback to VaultGuard.
+func WithSecretsProvider(cfg SecretsConfig) SecureConfigOption {
+	return func(o *secureConfigOptions) {
+		o.secretsConfig = &cfg
+	}
+}
+
+// WithAWSSecretsManager configures AWS Secrets Manager as the secrets provider.
+// This is a convenience function for AWS deployments.
+func WithAWSSecretsManager(prefix, region string) SecureConfigOption {
+	return func(o *secureConfigOptions) {
+		o.secretsConfig = &SecretsConfig{
+			Provider:      SecretsProviderAWSSM,
+			Prefix:        prefix,
+			Region:        region,
+			FallbackToEnv: true,
+		}
+	}
+}
+
+// WithAutoSecretsProvider uses DefaultSecretsConfig to auto-detect the provider.
+// In AWS environments, this will use AWS Secrets Manager; otherwise, env vars.
+func WithAutoSecretsProvider() SecureConfigOption {
+	return func(o *secureConfigOptions) {
+		cfg := DefaultSecretsConfig()
+		o.secretsConfig = &cfg
 	}
 }
