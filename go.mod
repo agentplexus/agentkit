@@ -4,7 +4,7 @@ go 1.24.11
 
 require (
 	github.com/a2aproject/a2a-go v0.3.3
-	github.com/agentplexus/omnillm v0.9.0
+	github.com/agentplexus/omnillm v0.10.0
 	github.com/agentplexus/omniobserve v0.4.0
 	github.com/agentplexus/omnivault v0.1.0
 	github.com/agentplexus/vaultguard v0.2.0

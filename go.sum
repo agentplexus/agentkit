@@ -8,8 +8,8 @@ github.com/a2aproject/a2a-go v0.3.3 h1:NqGDw2c8hCSW3/9MakeeRpw5yCZUUmW2Y/yINV15G
 github.com/a2aproject/a2a-go v0.3.3/go.mod h1:8C0O6lsfR7zWFEqVZz/+zWCoxe8gSWpknEpqm/Vgj3E=
 github.com/agentplexus/go-comet-ml-opik v0.3.0 h1:7ikwtsvtfw40J95E7mNu4LZQr7a5abEEWmqljI9tZ08=
 github.com/agentplexus/go-comet-ml-opik v0.3.0/go.mod h1:BjePiG921PstZJ8yDlCLekVxjssRGl7uEaxFvzV4Y00=
-github.com/agentplexus/omnillm v0.9.0 h1:frL5nEcATlcUOJYqBYSqZB1Ba/pRWIzda7ID1mRkthM=
-github.com/agentplexus/omnillm v0.9.0/go.mod h1:2ZmGwLt2SdmYtwT9+kPt0vlLHyQFy7NtMjXMZQbkLhI=
+github.com/agentplexus/omnillm v0.10.0 h1:c+DixBvvHtqUpaQvj9vhzCzJ+Bfa8nP1nxmVyFVEAsU=
+github.com/agentplexus/omnillm v0.10.0/go.mod h1:2ZmGwLt2SdmYtwT9+kPt0vlLHyQFy7NtMjXMZQbkLhI=
 github.com/agentplexus/omniobserve v0.4.0 h1:bJcWOx0uRHyP/QONO+4uVrvqSauKDsa66y4fq90BWpc=
 github.com/agentplexus/omniobserve v0.4.0/go.mod h1:Wcf9Agw+OsvXMgC7YzUPfgw3R3mdzwlDFHoohdawSEI=
 github.com/agentplexus/omnivault v0.1.0 h1:g0HSvSGiuhQhNEw5SS7oGlXDULr213gO8vJaNNpWQ3w=
