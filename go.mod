@@ -6,7 +6,7 @@ require (
 	github.com/a2aproject/a2a-go v0.3.3
 	github.com/agentplexus/omnillm v0.9.0
 	github.com/agentplexus/omniobserve v0.4.0
-	github.com/agentplexus/omnivault v0.1.0
+	github.com/agentplexus/omnivault v0.2.0
 	github.com/agentplexus/vaultguard v0.2.0
 	github.com/cloudwego/eino v0.7.18
 	github.com/go-playground/validator/v10 v10.30.1
@@ -95,7 +95,7 @@ require (
 	golang.org/x/exp v0.0.0-20251219203646-944ab1f22d93 // indirect
 	golang.org/x/net v0.48.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.39.0 // indirect
+	golang.org/x/sys v0.40.0 // indirect
 	golang.org/x/text v0.32.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251222181119-0a764e51fe1b // indirect
 	google.golang.org/grpc v1.78.0 // indirect
