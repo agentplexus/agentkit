@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/agentplexus/agentkit/main/platforms/local/schema.json",
+  "title": "AgentKit Local Configuration",
+  "description": "Configuration schema for agentkit local embedded mode, enabling CLI assistants to orchestrate multi-agent teams via MCP.",
+  "type": "object",
+  "required": ["mode", "agents"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "const": "local",
+      "description": "Must be 'local' for embedded mode."
+    },
+    "workspace": {
+      "type": "string",
+      "description": "Root directory for filesystem access. Defaults to current working directory.",
+      "default": "."
+    },
+    "agents": {
+      "type": "array",
+      "description": "List of agent definitions.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/AgentConfig"
+      }
+    },
+    "mcp": {
+      "$ref": "#/$defs/MCPConfig"
+    },
+    "llm": {
+      "$ref": "#/$defs/LLMConfig"
+    },
+    "timeouts": {
+      "$ref": "#/$defs/TimeoutConfig"
+    }
+  },
+  "$defs": {
+    "AgentConfig": {
+      "type": "object",
+      "description": "Defines a single agent.",
+      "required": ["name", "instructions"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique identifier for the agent.",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "description": {
+          "type": "string",
+          "description": "Explains when to use this agent. Shown in list_agents output."
+        },
+        "instructions": {
+          "type": "string",
+          "description": "System prompt for the agent, or path to a .md file containing instructions."
+        },
+        "tools": {
+          "type": "array",
+          "description": "Tools available to this agent.",
+          "items": {
+            "type": "string",
+            "enum": ["read", "write", "glob", "grep", "shell"]
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "model": {
+          "type": "string",
+          "description": "Override the default LLM model for this agent."
+        },
+        "max_tokens": {
+          "type": "integer",
+          "description": "Maximum tokens in the response.",
+          "minimum": 1,
+          "maximum": 128000,
+          "default": 4096
+        }
+      }
+    },
+    "MCPConfig": {
+      "type": "object",
+      "description": "Configuration for the MCP server interface.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the MCP server is active.",
+          "default": true
+        },
+        "transport": {
+          "type": "string",
+          "description": "MCP transport type.",
+          "enum": ["stdio", "http"],
+          "default": "stdio"
+        },
+        "port": {
+          "type": "integer",
+          "description": "Port for HTTP transport.",
+          "minimum": 1,
+          "maximum": 65535,
+          "default": 8080
+        },
+        "server_name": {
+          "type": "string",
+          "description": "Name reported in MCP server info.",
+          "default": "agentkit-local"
+        },
+        "server_version": {
+          "type": "string",
+          "description": "Version reported in MCP server info.",
+          "default": "1.0.0"
+        }
+      }
+    },
+    "LLMConfig": {
+      "type": "object",
+      "description": "Configuration for the language model provider.",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "LLM provider to use.",
+          "enum": ["openai", "anthropic", "gemini", "ollama"],
+          "default": "openai"
+        },
+        "model": {
+          "type": "string",
+          "description": "Default model to use.",
+          "default": "gpt-4o"
+        },
+        "api_key": {
+          "type": "string",
+          "description": "API key. Can use environment variable reference like ${OPENAI_API_KEY}."
+        },
+        "base_url": {
+          "type": "string",
+          "description": "Override the API base URL.",
+          "format": "uri"
+        },
+        "temperature": {
+          "type": "number",
+          "description": "Controls randomness in responses.",
+          "minimum": 0.0,
+          "maximum": 2.0,
+          "default": 0.7
+        }
+      }
+    },
+    "TimeoutConfig": {
+      "type": "object",
+      "description": "Timeout configuration for various operations.",
+      "properties": {
+        "agent_invoke": {
+          "type": "string",
+          "description": "Timeout for a single agent invocation. Go duration format (e.g., '5m', '300s').",
+          "pattern": "^[0-9]+(ns|us|µs|ms|s|m|h)+$",
+          "default": "5m"
+        },
+        "shell_command": {
+          "type": "string",
+          "description": "Timeout for shell command execution.",
+          "pattern": "^[0-9]+(ns|us|µs|ms|s|m|h)+$",
+          "default": "2m"
+        },
+        "file_read": {
+          "type": "string",
+          "description": "Timeout for file read operations.",
+          "pattern": "^[0-9]+(ns|us|µs|ms|s|m|h)+$",
+          "default": "30s"
+        },
+        "parallel_total": {
+          "type": "string",
+          "description": "Total timeout for parallel agent execution.",
+          "pattern": "^[0-9]+(ns|us|µs|ms|s|m|h)+$",
+          "default": "10m"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "mode": "local",
+      "workspace": ".",
+      "agents": [
+        {
+          "name": "release-coordinator",
+          "description": "Orchestrates software releases including versioning, changelog, and tagging",
+          "instructions": "You are a release orchestration specialist...",
+          "tools": ["read", "glob", "grep", "shell"]
+        },
+        {
+          "name": "code-reviewer",
+          "description": "Reviews code changes for quality and security issues",
+          "instructions": "You are a code review specialist...",
+          "tools": ["read", "glob", "grep"]
+        }
+      ],
+      "mcp": {
+        "enabled": true,
+        "transport": "stdio"
+      },
+      "llm": {
+        "provider": "openai",
+        "model": "gpt-4o",
+        "api_key": "${OPENAI_API_KEY}"
+      }
+    }
+  ]
+}
