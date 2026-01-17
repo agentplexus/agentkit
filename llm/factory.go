@@ -16,9 +16,9 @@ import (
 	"github.com/agentplexus/agentkit/llm/adapters"
 
 	// Import observability providers (driver registration via init())
+	_ "github.com/agentplexus/go-opik/llmops"
+	_ "github.com/agentplexus/go-phoenix/llmops"
 	_ "github.com/agentplexus/omniobserve/llmops/langfuse"
-	_ "github.com/agentplexus/omniobserve/llmops/opik"
-	_ "github.com/agentplexus/omniobserve/llmops/phoenix"
 )
 
 // ModelFactory creates LLM models based on configuration.

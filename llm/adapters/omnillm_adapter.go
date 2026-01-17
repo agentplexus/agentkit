@@ -42,10 +42,14 @@ func NewOmniLLMAdapterWithConfig(cfg OmniLLMAdapterConfig) (*OmniLLMAdapter, err
 		return nil, fmt.Errorf("%s API key is required", cfg.ProviderName)
 	}
 
-	// Create OmniLLM config
+	// Create OmniLLM config with new Providers slice API
 	config := omnillm.ClientConfig{
-		Provider:          omnillm.ProviderName(cfg.ProviderName),
-		APIKey:            cfg.APIKey,
+		Providers: []omnillm.ProviderConfig{
+			{
+				Provider: omnillm.ProviderName(cfg.ProviderName),
+				APIKey:   cfg.APIKey,
+			},
+		},
 		ObservabilityHook: cfg.ObservabilityHook,
 	}
 
