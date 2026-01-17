@@ -22,6 +22,8 @@ AWS Bedrock's serverless agent runtime.
 - Pay-per-use pricing
 - Built-in session management
 
+See also: [Infrastructure Requirements](agentcore-requirements.md) for ECR, naming, and configuration constraints.
+
 ## Platform Comparison
 
 | Aspect | Kubernetes | AWS AgentCore |

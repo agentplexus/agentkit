@@ -180,6 +180,9 @@ curl -X POST localhost:8080/invocations -d '{"prompt":"test"}'
 !!! note "Infrastructure as Code"
     Helm does **NOT** apply to AgentCore. Use AWS CDK or Terraform instead.
 
+!!! warning "Infrastructure Requirements"
+    Before deploying, review the [Infrastructure Requirements](agentcore-requirements.md) for ECR image requirements, naming constraints, and configuration limits.
+
 ### Dockerfile
 
 ```dockerfile
@@ -230,5 +233,6 @@ const agent = new agentcore.Agent(this, 'StatsAgent', {
 
 ## Next Steps
 
+- [Infrastructure Requirements](agentcore-requirements.md) - ECR, naming, and configuration constraints
 - [Kubernetes Deployment](kubernetes.md) - Alternative container-based deployment
 - [Local Development](../getting-started/local-development.md) - Test before deploying
