@@ -8,7 +8,7 @@ require (
 	github.com/agentplexus/omniobserve v0.4.0
 	github.com/agentplexus/omnivault v0.1.0
 	github.com/agentplexus/vaultguard v0.2.0
-	github.com/cloudwego/eino v0.7.17
+	github.com/cloudwego/eino v0.7.18
 	github.com/go-playground/validator/v10 v10.30.1
 	google.golang.org/adk v0.3.0
 	google.golang.org/genai v1.40.0
