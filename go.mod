@@ -7,7 +7,7 @@ require (
 	github.com/agentplexus/go-opik v0.5.1
 	github.com/agentplexus/go-phoenix v0.1.1
 	github.com/agentplexus/omnillm v0.11.0
-	github.com/agentplexus/omniobserve v0.5.0
+	github.com/agentplexus/omniobserve v0.5.1
 	github.com/agentplexus/omnivault v0.2.0
 	github.com/agentplexus/vaultguard v0.2.0
 	github.com/cloudwego/eino v0.7.25
