@@ -1,6 +1,6 @@
 module github.com/agentplexus/agentkit
 
-go 1.24.11
+go 1.25.5
 
 require (
 	github.com/a2aproject/a2a-go v0.3.5
@@ -8,7 +8,7 @@ require (
 	github.com/agentplexus/go-phoenix v0.1.1
 	github.com/agentplexus/omnillm v0.11.0
 	github.com/agentplexus/omniobserve v0.5.1
-	github.com/agentplexus/omnivault v0.2.0
+	github.com/agentplexus/omnivault v0.2.1
 	github.com/agentplexus/vaultguard v0.2.0
 	github.com/cloudwego/eino v0.7.28
 	github.com/go-playground/validator/v10 v10.30.1
