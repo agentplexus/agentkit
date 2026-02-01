@@ -14,8 +14,8 @@ github.com/agentplexus/omnillm v0.11.0 h1:kjmdmmu0wDVLqrfcECMTLw+hkTvVSvN+FIpQea
 github.com/agentplexus/omnillm v0.11.0/go.mod h1:vJ2I0U/p8n9wtX4vT2pni/seRqhnbdKknrZwEdAb5ZU=
 github.com/agentplexus/omniobserve v0.5.1 h1:dDoZlDyJnsE/Dloe2KiL9qvyLcFsScKzj1LYyklcLP0=
 github.com/agentplexus/omniobserve v0.5.1/go.mod h1:qnUhvMCViaUIITILKmOlzmi19Es/eYH/gmcdyDywZdY=
-github.com/agentplexus/omnivault v0.2.0 h1:2Irg07HT4vg2TekocJoUfjyekUdtKcQm/alNEnUngRk=
-github.com/agentplexus/omnivault v0.2.0/go.mod h1:r+sr3yTymLn/sU/BjcXtrKouEuKpHOl21G0q254h04o=
+github.com/agentplexus/omnivault v0.2.1 h1:7Inras4SbRrQIEguDvvr0SKc11pvBOmWKKuGUdcdXeg=
+github.com/agentplexus/omnivault v0.2.1/go.mod h1:zS5AsNGKNuRRMyA4vSJZXmV1F4lOhAGeZD50kKOpLlk=
 github.com/agentplexus/posture v0.2.0 h1:YstmU3QELdYI+YYa5mquqaRURR+eF6/Atn8vYIFcYRc=
 github.com/agentplexus/posture v0.2.0/go.mod h1:VzVmJd/Ls6pm+wwOuBznukDVoJmfbCPHZME8gbmlpCA=
 github.com/agentplexus/vaultguard v0.2.0 h1:uypEenCcJhJIes+fHsXHThBRXAV4ia0LCfOiupHTJWs=
