@@ -4,7 +4,7 @@
   "repository": "https://github.com/agentplexus/agentkit",
   "releases": [
     {
-      "version": "0.4.0",
+      "version": "v0.4.0",
       "date": "2026-02-02",
       "highlights": [
         { "description": "Model Context Protocol (MCP) server for AI assistant tool integration" },
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "version": "0.3.0",
+      "version": "v0.3.0",
       "date": "2026-01-04",
       "added": [
         { "description": "OmniVault integration for unified secret management (`config/omnivault.go`)" },
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "version": "0.2.0",
+      "version": "v0.2.0",
       "date": "2025-12-31",
       "added": [
         { "description": "IaC configuration package for AgentCore deployments" }
@@ -66,7 +66,7 @@
       ]
     },
     {
-      "version": "0.1.0",
+      "version": "v0.1.0",
       "date": "2025-12-29",
       "added": [
         { "description": "Initial release with core agent framework" },
