@@ -4,6 +4,37 @@
   "repository": "https://github.com/agentplexus/agentkit",
   "releases": [
     {
+      "version": "0.4.0",
+      "date": "2026-02-02",
+      "highlights": [
+        { "description": "Model Context Protocol (MCP) server for AI assistant tool integration" },
+        { "description": "Local development platform for CLI-based agent testing" }
+      ],
+      "added": [
+        { "description": "MCP server implementation with JSON-RPC 2.0 protocol and stdio transport (`mcp/server.go`, `mcp/protocol.go`)", "commit": "cb47e55" },
+        { "description": "Local development platform with interactive CLI, file system tools, and bash execution (`platforms/local/`)", "commit": "492b59d" }
+      ],
+      "changed": [
+        { "description": "Update LLM integration for new OmniLLM and OmniObserve APIs", "commit": "b5beda7" }
+      ],
+      "documentation": [
+        { "description": "Update AgentCore platform documentation", "commit": "1a8468c" },
+        { "description": "Add SVG icon", "commit": "f7090d4" },
+        { "description": "Add icon with transparent background", "commit": "fde15ea" }
+      ],
+      "infrastructure": [
+        { "description": "Update Go versions in CI workflow", "commit": "607ee24" }
+      ],
+      "dependencies": [
+        { "description": "Upgrade `google.golang.org/adk` 0.3.0 → 0.4.0", "commit": "784cd47" },
+        { "description": "Upgrade `github.com/cloudwego/eino` 0.7.17 → 0.7.29", "commit": "599ece2" },
+        { "description": "Upgrade `google.golang.org/genai` 1.42.0 → 1.44.0", "commit": "599ece2" },
+        { "description": "Upgrade `github.com/a2aproject/a2a-go` 0.3.4 → 0.3.6", "commit": "599ece2" },
+        { "description": "Upgrade `github.com/agentplexus/omnivault` 0.2.0 → 0.2.1", "commit": "34d7309" },
+        { "description": "Upgrade `github.com/agentplexus/omniobserve` 0.5.0 → 0.5.1", "commit": "d4b35ca" }
+      ]
+    },
+    {
       "version": "0.3.0",
       "date": "2026-01-04",
       "added": [
