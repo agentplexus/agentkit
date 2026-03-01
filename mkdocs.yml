@@ -1,10 +1,8 @@
 site_name: AgentKit
 site_description: A Go library for building AI agent applications
-site_url: https://agentplexus.github.io/agentkit
-repo_url: https://github.com/agentplexus/agentkit
-repo_name: agentplexus/agentkit
-
-docs_dir: docsrc
+site_url: https://plexusone.github.io/agentkit
+repo_url: https://github.com/plexusone/agentkit
+repo_name: plexusone/agentkit
 
 theme:
   name: material
@@ -64,6 +62,8 @@ nav:
     - Overview: platforms/index.md
     - Kubernetes: platforms/kubernetes.md
     - AWS AgentCore: platforms/agentcore.md
+    - AgentCore Requirements: platforms/agentcore-requirements.md
+    - AWS Deployment Guide: platforms/aws-deployment-guide.md
   - Packages:
     - config: packages/config.md
     - llm: packages/llm.md
