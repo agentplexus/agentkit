@@ -13,7 +13,7 @@ require (
 	github.com/cloudwego/eino v0.7.34
 	github.com/go-playground/validator/v10 v10.30.1
 	google.golang.org/adk v0.4.0
-	google.golang.org/genai v1.44.0
+	google.golang.org/genai v1.47.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
