@@ -6,6 +6,7 @@ require (
 	github.com/a2aproject/a2a-go v0.3.7
 	github.com/cloudwego/eino v0.7.36
 	github.com/go-playground/validator/v10 v10.30.1
+	github.com/grokify/mogo v0.73.3
 	github.com/plexusone/omnillm v0.13.0
 	github.com/plexusone/omniobserve v0.7.0
 	github.com/plexusone/omnivault v0.3.0
@@ -54,7 +55,6 @@ require (
 	github.com/googleapis/gax-go/v2 v2.17.0 // indirect
 	github.com/goph/emperror v0.17.2 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
-	github.com/grokify/mogo v0.73.2 // indirect
 	github.com/grokify/sogo v0.14.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect

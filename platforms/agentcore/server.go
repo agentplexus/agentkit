@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
+
+	"github.com/grokify/mogo/log/sanitize"
 )
 
 // Server implements the AWS AgentCore HTTP contract.
@@ -109,7 +110,7 @@ func (s *Server) handleInvocations(w http.ResponseWriter, r *http.Request) {
 
 	if s.config.EnableRequestLogging {
 		log.Printf("[AgentCore] Invocation: agent=%s session=%s prompt_len=%d",
-			req.Agent, req.SessionID, len(req.Prompt))
+			sanitize.String(req.Agent), sanitize.String(req.SessionID), len(req.Prompt))
 	}
 
 	// Create session context
@@ -132,9 +133,9 @@ func (s *Server) handleInvocations(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if s.config.EnableRequestLogging && s.config.EnableSessionTracking {
-		safeSessionID := strings.ReplaceAll(strings.ReplaceAll(req.SessionID, "\n", ""), "\r", "")
-		log.Printf("[AgentCore] Invocation complete: session=%s output_len=%d", //nolint:gosec // G706: Internal logging
-			safeSessionID, len(resp.Output))
+		//nolint:gosec // G706: sanitize.String removes control chars (CWE-117 mitigation)
+		log.Printf("[AgentCore] Invocation complete: session=%s output_len=%d",
+			sanitize.String(req.SessionID), len(resp.Output))
 	}
 }
 
