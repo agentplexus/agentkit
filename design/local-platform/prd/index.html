@@ -1,0 +1,3536 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Go library for building AI agent applications">
+      
+      
+      
+        <link rel="canonical" href="https://plexusone.github.io/agentkit/design/local-platform/prd/">
+      
+      
+        <link rel="prev" href="../../../benefits/">
+      
+      
+        <link rel="next" href="../trd/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Local Platform PRD - AgentKit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prd-agentkit-local-platform" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AgentKit" class="md-header__button md-logo" aria-label="AgentKit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AgentKit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Local Platform PRD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/plexusone/agentkit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    plexusone/agentkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../getting-started/installation/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../configuration/credentials/" class="md-tabs__link">
+          
+  
+  
+  Configuration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../server-factories/" class="md-tabs__link">
+          
+  
+  
+  Server Factories
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../platforms/" class="md-tabs__link">
+          
+  
+  
+  Platforms
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../packages/config/" class="md-tabs__link">
+          
+  
+  
+  Packages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../migration/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Migration Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../benefits/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Benefits
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../releases/v0.5.0/" class="md-tabs__link">
+          
+  
+  
+  Releases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AgentKit" class="md-nav__button md-logo" aria-label="AgentKit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AgentKit
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/plexusone/agentkit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    plexusone/agentkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/local-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/credentials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Credentials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Secrets Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Server Factories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Server Factories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../server-factories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../server-factories/a2a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A2A Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../server-factories/httpserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HTTP Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Platforms
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Platforms
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../platforms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../platforms/kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../platforms/agentcore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS AgentCore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../platforms/agentcore-requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AgentCore Requirements
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../platforms/aws-deployment-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS Deployment Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Packages
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Packages
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    llm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    orchestration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/http/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    http
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../benefits/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Benefits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Design
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Local Platform PRD
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local Platform PRD
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem Statement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem Statement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-solutions-and-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Solutions and Gaps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-segments" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Segments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goals-and-non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goals and Non-Goals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Goals and Non-Goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execution Modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-agent-spec-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Agent Spec Compliance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Agent Spec Compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-schema-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Schema Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-definition-format-markdown-yaml-frontmatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Definition Format (Markdown + YAML Frontmatter)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-definition-format-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Definition Format (JSON)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-configuration-format-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Configuration Format (JSON)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-mapping-canonical-agentkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Mapping (Canonical → AgentKit)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-mapping-canonical-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Mapping (Canonical → Provider)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report-output-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Report Output Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr1-cli-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR1: CLI Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr2-dag-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR2: DAG Orchestration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr3-llm-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR3: LLM Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr4-memory-and-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR4: Memory and State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr5-tool-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5: Tool System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr6-specification-loading-multi-agent-spec-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR6: Specification Loading (multi-agent-spec Compliance)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Functional Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-journeys" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Journeys
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Journeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#journey-1-run-prd-discovery-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Journey 1: Run PRD Discovery Phase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-2-single-agent-with-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Journey 2: Single Agent with Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-3-full-release-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Journey 3: Full Release Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-agentkit-local-vs-google-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison: AgentKit Local vs Google ADK
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparison: AgentKit Local vs Google ADK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-just-use-google-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Not Just Use Google ADK?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-adk-provides-that-we-leverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      What ADK Provides That We Leverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-we-build-beyond-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      What We Build Beyond ADK
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Success Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Risks and Mitigations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Phases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-cli-foundation-p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: CLI Foundation (P0)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-dag-orchestration-p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: DAG Orchestration (P0)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-enhanced-cli-features-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Enhanced CLI Features (P1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-service-mode-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Service Mode (P1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-polish-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 5: Polish (P2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-existing-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix: Existing Implementation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local Platform TRD
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Releases
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Releases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../releases/v0.5.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v0.5.0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../releases/v0.4.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v0.4.0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../releases/v0.3.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v0.3.0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v0.2.0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../releases/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v0.1.0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem Statement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem Statement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-solutions-and-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Solutions and Gaps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-segments" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Segments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goals-and-non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goals and Non-Goals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Goals and Non-Goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execution Modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-agent-spec-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Agent Spec Compliance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-Agent Spec Compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-schema-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Schema Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-definition-format-markdown-yaml-frontmatter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Definition Format (Markdown + YAML Frontmatter)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-definition-format-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Definition Format (JSON)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-configuration-format-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Configuration Format (JSON)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-mapping-canonical-agentkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Mapping (Canonical → AgentKit)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-mapping-canonical-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Mapping (Canonical → Provider)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report-output-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Report Output Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functional Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr1-cli-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR1: CLI Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr2-dag-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR2: DAG Orchestration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr3-llm-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR3: LLM Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr4-memory-and-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR4: Memory and State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr5-tool-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5: Tool System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr6-specification-loading-multi-agent-spec-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR6: Specification Loading (multi-agent-spec Compliance)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-functional-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Functional Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-journeys" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Journeys
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Journeys">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#journey-1-run-prd-discovery-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Journey 1: Run PRD Discovery Phase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-2-single-agent-with-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Journey 2: Single Agent with Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#journey-3-full-release-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Journey 3: Full Release Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-agentkit-local-vs-google-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison: AgentKit Local vs Google ADK
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparison: AgentKit Local vs Google ADK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-just-use-google-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Not Just Use Google ADK?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-adk-provides-that-we-leverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      What ADK Provides That We Leverage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-we-build-beyond-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      What We Build Beyond ADK
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Success Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Risks and Mitigations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Phases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-cli-foundation-p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: CLI Foundation (P0)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-dag-orchestration-p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: DAG Orchestration (P0)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-enhanced-cli-features-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Enhanced CLI Features (P1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-service-mode-p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Service Mode (P1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-polish-p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 5: Polish (P2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-existing-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix: Existing Implementation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="prd-agentkit-local-platform">PRD: AgentKit Local Platform<a class="headerlink" href="#prd-agentkit-local-platform" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> Draft
+<strong>Version:</strong> 1.0.0
+<strong>Owner:</strong> PlexusOne Team
+<strong>Last Updated:</strong> 2025-01-20</p>
+<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
+<h3 id="primary-problem">Primary Problem<a class="headerlink" href="#primary-problem" title="Permanent link">&para;</a></h3>
+<p>Developers building multi-agent AI applications need a way to run orchestrated agent workflows locally that:</p>
+<ol>
+<li>Work with any LLM provider (not locked to a single vendor)</li>
+<li>Integrate with existing AI CLI tools (Claude Code, Kiro, Gemini CLI)</li>
+<li>Support filesystem access for code generation and analysis tasks</li>
+<li>Enable DAG-based workflow orchestration with complex dependencies</li>
+<li>Persist state across agent invocations for multi-turn interactions</li>
+</ol>
+<h3 id="current-solutions-and-gaps">Current Solutions and Gaps<a class="headerlink" href="#current-solutions-and-gaps" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Solution</th>
+<th>LLM Agnostic</th>
+<th>DAG Orchestration</th>
+<th>Filesystem Tools</th>
+<th>CLI Integration</th>
+<th>Memory/State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google ADK</td>
+<td>No (Gemini-focused)</td>
+<td>No (seq/parallel only)</td>
+<td>No</td>
+<td>No</td>
+<td>Yes (session)</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>Yes</td>
+<td>No</td>
+<td>Limited</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>AutoGen</td>
+<td>Yes</td>
+<td>No</td>
+<td>Limited</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>LangGraph</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Limited</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Claude Code</td>
+<td>No (Anthropic only)</td>
+<td>No</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>AgentKit Local</strong></td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-segments">User Segments<a class="headerlink" href="#user-segments" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>AI Application Developers</strong> - Building production multi-agent systems</li>
+<li><strong>CLI Tool Authors</strong> - Creating AI-powered developer tools</li>
+<li><strong>Workflow Automation Engineers</strong> - Orchestrating complex AI pipelines</li>
+<li><strong>Enterprise Teams</strong> - Need vendor-agnostic, auditable agent systems</li>
+</ol>
+<h2 id="goals-and-non-goals">Goals and Non-Goals<a class="headerlink" href="#goals-and-non-goals" title="Permanent link">&para;</a></h2>
+<h3 id="goals">Goals<a class="headerlink" href="#goals" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>G1:</strong> Provide a CLI tool (<code>agent-cli</code>) for running single agents or multi-agent workflows locally</li>
+<li><strong>G2:</strong> Provide a service mode (<code>agent-server</code>) for long-running agent orchestration with streaming</li>
+<li><strong>G3:</strong> Support arbitrary DAG-based workflow orchestration (not just sequential/parallel)</li>
+<li><strong>G4:</strong> Integrate with omnillm for multi-provider LLM support</li>
+<li><strong>G5:</strong> Enable persistent memory/state via pluggable backends (filesystem, Redis)</li>
+<li><strong>G6:</strong> Load agent and workflow specifications from multi-agent-spec format</li>
+<li><strong>G7:</strong> Expose agents via MCP for integration with AI CLI tools</li>
+</ol>
+<h3 id="execution-modes">Execution Modes<a class="headerlink" href="#execution-modes" title="Permanent link">&para;</a></h3>
+<p>AgentKit Local targets <strong>two execution modes</strong> with a shared core:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Entry Point</th>
+<th>Use Case</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CLI</strong></td>
+<td><code>agent-cli</code></td>
+<td>One-shot execution, CI/CD, scripting</td>
+<td>P0 (Phase 1)</td>
+</tr>
+<tr>
+<td><strong>Service</strong></td>
+<td><code>agent-server</code></td>
+<td>Long-running, streaming, warm connections</td>
+<td>P1 (Phase 2)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                    Shared Core                               │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐           │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  │  DAG    │ │  State  │ │  Spec   │ │  LLM    │           │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  │Executor │ │ Backend │ │ Loader  │ │ Client  │           │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  └─────────┘ └─────────┘ └─────────┘ └─────────┘           │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├──────────────────────┬──────────────────────────────────────┤
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│      CLI Mode        │           Service Mode               │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│  ┌────────────────┐  │  ┌────────────────────────────────┐ │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│  │  agent-cli     │  │  │  agent-server                  │ │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│  │  - run         │  │  │  - HTTP/gRPC API               │ │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│  │  - workflow    │  │  │  - Streaming responses         │ │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│  │  - list        │  │  │  - Session management          │ │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│  │  - validate    │  │  │  - Warm LLM connections        │ │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│  └────────────────┘  │  └────────────────────────────────┘ │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>└──────────────────────┴──────────────────────────────────────┘
+</code></pre></div>
+<p><strong>Why both modes?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>CLI</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One-shot execution</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>CI/CD integration</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Streaming responses</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Warm LLM connections</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Session persistence across calls</td>
+<td>Via filesystem</td>
+<td>In-memory + persistent</td>
+</tr>
+<tr>
+<td>Human-in-the-loop intervention</td>
+<td>Limited</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Resource efficiency (many workflows)</td>
+<td>❌ (cold start)</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Start with CLI</strong> because:
+- Simpler to implement and test
+- Matches existing AI CLI tool patterns (Claude Code, Kiro)
+- No daemon management complexity
+- State persistence via filesystem is sufficient initially</p>
+<p><strong>Add Service later</strong> when needed for:
+- Real-time streaming of agent reasoning
+- High-throughput workflow execution
+- Interactive applications requiring low latency</p>
+<h3 id="non-goals">Non-Goals<a class="headerlink" href="#non-goals" title="Permanent link">&para;</a></h3>
+<ul>
+<li>N1: Replace distributed/serverless deployments (use AgentCore, Kubernetes for that)</li>
+<li>N2: Provide a GUI or web interface</li>
+<li>N3: Implement custom LLM inference (use omnillm)</li>
+<li>N4: Support non-Go agent implementations in this package</li>
+</ul>
+<h2 id="multi-agent-spec-compliance">Multi-Agent Spec Compliance<a class="headerlink" href="#multi-agent-spec-compliance" title="Permanent link">&para;</a></h2>
+<p>AgentKit Local <strong>MUST</strong> implement the <a href="https://github.com/plexusone/multi-agent-spec">multi-agent-spec</a> schema for workflow definitions. This ensures portability across platforms (Claude Code, Kiro CLI, AWS AgentCore, Kubernetes).</p>
+<h3 id="required-schema-support">Required Schema Support<a class="headerlink" href="#required-schema-support" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Schema</th>
+<th>Location</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent Schema</td>
+<td><code>schema/agent/agent.schema.json</code></td>
+<td>Agent definitions with tools, model, instructions</td>
+</tr>
+<tr>
+<td>Team Schema</td>
+<td><code>schema/orchestration/team.schema.json</code></td>
+<td>Team composition with DAG workflow</td>
+</tr>
+<tr>
+<td>Deployment Schema</td>
+<td><code>schema/deployment/deployment.schema.json</code></td>
+<td>Runtime configuration for agentkit-local</td>
+</tr>
+</tbody>
+</table>
+<h3 id="agent-definition-format-markdown-yaml-frontmatter">Agent Definition Format (Markdown + YAML Frontmatter)<a class="headerlink" href="#agent-definition-format-markdown-yaml-frontmatter" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nn">---</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">problem-discovery</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User-centric problem definition expert</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sonnet</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nt">tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Read</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Grep</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Glob</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">WebSearch</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="no">Focus on identifying REAL problems before solutions.</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nt">tasks</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">problem-statement</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Clear problem statement defined</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pattern</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;problem_statement&quot;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="nn">---</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="c1">## Role</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="l l-Scalar l-Scalar-Plain">User-centric problem definition expert focused on identifying real problems...</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="l l-Scalar l-Scalar-Plain">## Instructions</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="l l-Scalar l-Scalar-Plain">1. Define primary and secondary problems...</span>
+</code></pre></div>
+<h3 id="team-definition-format-json">Team Definition Format (JSON)<a class="headerlink" href="#team-definition-format-json" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prd-team&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRD creation and validation team&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;problem-discovery&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;user-research&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;market-intel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;solution-ideation&quot;</span><span class="p">],</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">&quot;orchestrator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prd-lead&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="nt">&quot;workflow&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dag&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&quot;steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-discovery&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-discovery&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="nt">&quot;depends_on&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="nt">&quot;outputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem_statement&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">}]</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="p">},</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user-research&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user-research&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="nt">&quot;depends_on&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">        </span><span class="nt">&quot;outputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;personas&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">}]</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span><span class="p">},</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;solution-ideation&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">        </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;solution-ideation&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">        </span><span class="nt">&quot;depends_on&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;problem-discovery&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;user-research&quot;</span><span class="p">],</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">        </span><span class="nt">&quot;inputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-discovery.problem_statement&quot;</span><span class="p">},</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;users&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user-research.personas&quot;</span><span class="p">}</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="deployment-configuration-format-json">Deployment Configuration Format (JSON)<a class="headerlink" href="#deployment-configuration-format-json" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prd-team&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;targets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local-dev&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agentkit-local&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;single-process&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p1&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">&quot;runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="nt">&quot;defaults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">          </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5m&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">          </span><span class="nt">&quot;retry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;max_attempts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;backoff&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;exponential&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">        </span><span class="nt">&quot;steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">          </span><span class="nt">&quot;prd-lead&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10m&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">      </span><span class="p">},</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span><span class="nt">&quot;workspace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="nt">&quot;llm&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">          </span><span class="nt">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anthropic&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">          </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;claude-sonnet-4-20250514&quot;</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">        </span><span class="nt">&quot;mcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;transport&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="tool-mapping-canonical-agentkit">Tool Mapping (Canonical → AgentKit)<a class="headerlink" href="#tool-mapping-canonical-agentkit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Canonical Tool</th>
+<th>AgentKit Tool</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read</td>
+<td>read</td>
+<td>File reading</td>
+</tr>
+<tr>
+<td>Write</td>
+<td>write</td>
+<td>File writing</td>
+</tr>
+<tr>
+<td>Glob</td>
+<td>glob</td>
+<td>Pattern matching</td>
+</tr>
+<tr>
+<td>Grep</td>
+<td>grep</td>
+<td>Content search</td>
+</tr>
+<tr>
+<td>Bash</td>
+<td>shell</td>
+<td>Command execution</td>
+</tr>
+<tr>
+<td>Edit</td>
+<td>write</td>
+<td>File modification</td>
+</tr>
+<tr>
+<td>WebSearch</td>
+<td>shell</td>
+<td>Via curl/external</td>
+</tr>
+<tr>
+<td>WebFetch</td>
+<td>shell</td>
+<td>Via curl/external</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>(orchestration)</td>
+<td>Spawn sub-agents</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-mapping-canonical-provider">Model Mapping (Canonical → Provider)<a class="headerlink" href="#model-mapping-canonical-provider" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Canonical</th>
+<th>Anthropic</th>
+<th>OpenAI</th>
+<th>Gemini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>haiku</td>
+<td>claude-3-5-haiku-20241022</td>
+<td>gpt-4o-mini</td>
+<td>gemini-2.0-flash</td>
+</tr>
+<tr>
+<td>sonnet</td>
+<td>claude-sonnet-4-20250514</td>
+<td>gpt-4o</td>
+<td>gemini-2.5-pro</td>
+</tr>
+<tr>
+<td>opus</td>
+<td>claude-opus-4-20250514</td>
+<td>gpt-4.5</td>
+<td>gemini-2.5-pro</td>
+</tr>
+</tbody>
+</table>
+<h3 id="report-output-format">Report Output Format<a class="headerlink" href="#report-output-format" title="Permanent link">&para;</a></h3>
+<p>AgentKit Local must produce reports conforming to <code>schema/report/</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com/org/repo&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;teams&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-discovery&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Problem Discovery&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-discovery&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sonnet&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GO&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">      </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-statement&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GO&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Defined&quot;</span><span class="p">}</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">      </span><span class="p">]</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GO&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="nt">&quot;generated_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-20T10:30:00Z&quot;</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Status Values:</strong> GO | WARN | NO-GO | SKIP (NASA Go/No-Go terminology)</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="fr1-cli-interface">FR1: CLI Interface<a class="headerlink" href="#fr1-cli-interface" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR1.1</td>
+<td>Run a single agent with a task</td>
+<td>P0</td>
+<td><code>agent-cli run --agent &lt;name&gt; --task "..."</code> executes agent and returns result</td>
+</tr>
+<tr>
+<td>FR1.2</td>
+<td>Run a workflow from spec file</td>
+<td>P0</td>
+<td><code>agent-cli workflow --spec &lt;file&gt;</code> executes DAG workflow</td>
+</tr>
+<tr>
+<td>FR1.3</td>
+<td>List available agents</td>
+<td>P1</td>
+<td><code>agent-cli list</code> shows all configured agents</td>
+</tr>
+<tr>
+<td>FR1.4</td>
+<td>Interactive mode</td>
+<td>P2</td>
+<td><code>agent-cli interactive</code> provides REPL for agent interaction</td>
+</tr>
+<tr>
+<td>FR1.5</td>
+<td>Output format selection</td>
+<td>P1</td>
+<td><code>--output json|text|toon</code> controls output format</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fr2-dag-orchestration">FR2: DAG Orchestration<a class="headerlink" href="#fr2-dag-orchestration" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR2.1</td>
+<td>Load workflow from JSON/YAML</td>
+<td>P0</td>
+<td>Parse workflow spec with steps and dependencies</td>
+</tr>
+<tr>
+<td>FR2.2</td>
+<td>Topological sort execution</td>
+<td>P0</td>
+<td>Execute steps respecting <code>depends_on</code> constraints</td>
+</tr>
+<tr>
+<td>FR2.3</td>
+<td>Parallel execution of independent steps</td>
+<td>P0</td>
+<td>Steps without dependencies run concurrently</td>
+</tr>
+<tr>
+<td>FR2.4</td>
+<td>Context passing between steps</td>
+<td>P0</td>
+<td>Step outputs available to dependent steps</td>
+</tr>
+<tr>
+<td>FR2.5</td>
+<td>Conditional execution</td>
+<td>P1</td>
+<td>Skip steps based on previous step outputs</td>
+</tr>
+<tr>
+<td>FR2.6</td>
+<td>Loop/iteration support</td>
+<td>P1</td>
+<td>Repeat step sequences until condition met</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fr3-llm-integration">FR3: LLM Integration<a class="headerlink" href="#fr3-llm-integration" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR3.1</td>
+<td>omnillm integration</td>
+<td>P0</td>
+<td>Use omnillm.ChatClient for all LLM calls</td>
+</tr>
+<tr>
+<td>FR3.2</td>
+<td>Provider selection via config</td>
+<td>P0</td>
+<td>Support anthropic, openai, gemini, xai, ollama</td>
+</tr>
+<tr>
+<td>FR3.3</td>
+<td>Per-agent model override</td>
+<td>P1</td>
+<td>Agent config can specify different model</td>
+</tr>
+<tr>
+<td>FR3.4</td>
+<td>Fallback providers</td>
+<td>P1</td>
+<td>Automatic failover if primary provider fails</td>
+</tr>
+<tr>
+<td>FR3.5</td>
+<td>Streaming responses</td>
+<td>P2</td>
+<td>Stream LLM output for real-time feedback</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fr4-memory-and-state">FR4: Memory and State<a class="headerlink" href="#fr4-memory-and-state" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR4.1</td>
+<td>Session state persistence</td>
+<td>P0</td>
+<td>State persists across CLI invocations within session</td>
+</tr>
+<tr>
+<td>FR4.2</td>
+<td>Filesystem backend</td>
+<td>P0</td>
+<td>Store state in <code>.agent-state/</code> directory</td>
+</tr>
+<tr>
+<td>FR4.3</td>
+<td>Redis backend</td>
+<td>P1</td>
+<td>Store state in Redis for distributed scenarios</td>
+</tr>
+<tr>
+<td>FR4.4</td>
+<td>Agent output history</td>
+<td>P0</td>
+<td>Previous agent outputs accessible to later agents</td>
+</tr>
+<tr>
+<td>FR4.5</td>
+<td>Conversation memory</td>
+<td>P1</td>
+<td>Multi-turn conversation history per agent</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fr5-tool-system">FR5: Tool System<a class="headerlink" href="#fr5-tool-system" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR5.1</td>
+<td>Filesystem tools</td>
+<td>P0</td>
+<td>read, write, glob, grep tools (already implemented)</td>
+</tr>
+<tr>
+<td>FR5.2</td>
+<td>Shell execution</td>
+<td>P0</td>
+<td>shell tool for command execution (already implemented)</td>
+</tr>
+<tr>
+<td>FR5.3</td>
+<td>Workspace sandboxing</td>
+<td>P0</td>
+<td>Tools scoped to workspace directory (already implemented)</td>
+</tr>
+<tr>
+<td>FR5.4</td>
+<td>Custom tool registration</td>
+<td>P2</td>
+<td>API for registering additional tools</td>
+</tr>
+<tr>
+<td>FR5.5</td>
+<td>Tool approval workflow</td>
+<td>P2</td>
+<td>Require user approval for dangerous operations</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fr6-specification-loading-multi-agent-spec-compliance">FR6: Specification Loading (multi-agent-spec Compliance)<a class="headerlink" href="#fr6-specification-loading-multi-agent-spec-compliance" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR6.1</td>
+<td>Load agent specs from Markdown</td>
+<td>P0</td>
+<td>Parse multi-agent-spec <code>agent.schema.json</code> format (YAML frontmatter + body)</td>
+</tr>
+<tr>
+<td>FR6.2</td>
+<td>Load team specs from JSON</td>
+<td>P0</td>
+<td>Parse multi-agent-spec <code>team.schema.json</code> with workflow DAG</td>
+</tr>
+<tr>
+<td>FR6.3</td>
+<td>Load deployment specs from JSON</td>
+<td>P0</td>
+<td>Parse multi-agent-spec <code>deployment.schema.json</code> for runtime config</td>
+</tr>
+<tr>
+<td>FR6.4</td>
+<td>Validate specs against schemas</td>
+<td>P0</td>
+<td>JSON Schema validation with clear error messages</td>
+</tr>
+<tr>
+<td>FR6.5</td>
+<td>Map canonical tools to local tools</td>
+<td>P0</td>
+<td>Transform Read/Write/Glob/Grep/Bash to local tool names</td>
+</tr>
+<tr>
+<td>FR6.6</td>
+<td>Map canonical models to providers</td>
+<td>P0</td>
+<td>Transform haiku/sonnet/opus to provider-specific model IDs</td>
+</tr>
+<tr>
+<td>FR6.7</td>
+<td>Support typed ports for data flow</td>
+<td>P1</td>
+<td>Parse inputs/outputs with <code>from</code> references for cross-step data</td>
+</tr>
+<tr>
+<td>FR6.8</td>
+<td>Generate conformant reports</td>
+<td>P0</td>
+<td>Output reports matching <code>team-report.schema.json</code> with GO/WARN/NO-GO status</td>
+</tr>
+</tbody>
+</table>
+<h3 id="non-functional-requirements">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Target</th>
+<th>Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR1</td>
+<td>Single agent latency overhead</td>
+<td>&lt; 100ms</td>
+<td>Time from CLI start to first LLM call</td>
+</tr>
+<tr>
+<td>NFR2</td>
+<td>Parallel agent efficiency</td>
+<td>&gt; 90%</td>
+<td>(parallel time) / (longest single agent time)</td>
+</tr>
+<tr>
+<td>NFR3</td>
+<td>Memory usage</td>
+<td>&lt; 100MB</td>
+<td>Peak RSS for 10-agent workflow</td>
+</tr>
+<tr>
+<td>NFR4</td>
+<td>Error recovery</td>
+<td>100%</td>
+<td>Graceful handling of LLM failures</td>
+</tr>
+</tbody>
+</table>
+<h2 id="user-journeys">User Journeys<a class="headerlink" href="#user-journeys" title="Permanent link">&para;</a></h2>
+<h3 id="journey-1-run-prd-discovery-phase">Journey 1: Run PRD Discovery Phase<a class="headerlink" href="#journey-1-run-prd-discovery-phase" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># User has agent specs in specs/agents/</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># User wants to run 3 discovery agents in parallel</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>$<span class="w"> </span>agent-cli<span class="w"> </span>workflow<span class="w"> </span>--spec<span class="w"> </span>specs/teams/prd-team.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">                     </span>--steps<span class="w"> </span>discovery<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">                     </span>--session<span class="w"> </span>prd-001
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="o">[</span>discovery<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>parallel<span class="w"> </span>execution<span class="w"> </span>of<span class="w"> </span><span class="m">3</span><span class="w"> </span>agents...
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="o">[</span>problem-discovery<span class="o">]</span><span class="w"> </span>Running...
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="o">[</span>user-research<span class="o">]</span><span class="w"> </span>Running...
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="o">[</span>market-intel<span class="o">]</span><span class="w"> </span>Running...
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="o">[</span>discovery<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>agents<span class="w"> </span>completed<span class="w"> </span><span class="k">in</span><span class="w"> </span>45s
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>Results<span class="w"> </span>written<span class="w"> </span>to<span class="w"> </span>.agent-state/prd-001/discovery.json
+</code></pre></div>
+<h3 id="journey-2-single-agent-with-memory">Journey 2: Single Agent with Memory<a class="headerlink" href="#journey-2-single-agent-with-memory" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># User wants to iterate with an agent across multiple turns</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$<span class="w"> </span>agent-cli<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>problem-discovery<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">                </span>--session<span class="w"> </span>my-session<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">                </span>--task<span class="w"> </span><span class="s2">&quot;Analyze the authentication problem&quot;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="o">[</span>problem-discovery<span class="o">]</span><span class="w"> </span>Analyzing...
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>Problem<span class="w"> </span>Statement:<span class="w"> </span>Users<span class="w"> </span>are<span class="w"> </span>experiencing<span class="w"> </span>friction<span class="w"> </span>during<span class="w"> </span>login...
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>$<span class="w"> </span>agent-cli<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>problem-discovery<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">                </span>--session<span class="w"> </span>my-session<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">                </span>--task<span class="w"> </span><span class="s2">&quot;Now consider mobile users specifically&quot;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="o">[</span>problem-discovery<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>on<span class="w"> </span>previous<span class="w"> </span>analysis...
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>Mobile-Specific<span class="w"> </span>Issues:<span class="w"> </span>Touch<span class="w"> </span>targets<span class="w"> </span>are<span class="w"> </span>too<span class="w"> </span>small...
+</code></pre></div>
+<h3 id="journey-3-full-release-workflow">Journey 3: Full Release Workflow<a class="headerlink" href="#journey-3-full-release-workflow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># User runs release validation workflow</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span>agent-cli<span class="w"> </span>workflow<span class="w"> </span>--spec<span class="w"> </span>specs/teams/release-team.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">                     </span>--provider<span class="w"> </span>anthropic<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">                     </span>--session<span class="w"> </span>release-v1.2.0
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="o">[</span>pm-validation<span class="o">]</span><span class="w"> </span>Checking<span class="w"> </span>version<span class="w"> </span>and<span class="w"> </span>scope...
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="o">[</span>pm-validation<span class="o">]</span><span class="w"> </span>Recommended<span class="w"> </span>version:<span class="w"> </span>v1.2.0<span class="w"> </span><span class="o">(</span>minor<span class="o">)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="o">[</span>qa-validation<span class="o">]</span><span class="w"> </span>Running<span class="w"> </span>build<span class="w"> </span>and<span class="w"> </span>tests...
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="o">[</span>docs-validation<span class="o">]</span><span class="w"> </span>Checking<span class="w"> </span>documentation...
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="o">[</span>security-validation<span class="o">]</span><span class="w"> </span>Scanning<span class="w"> </span><span class="k">for</span><span class="w"> </span>vulnerabilities...
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="o">[</span>release-validation<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>checks<span class="w"> </span>passed.<span class="w"> </span>GO<span class="w"> </span><span class="k">for</span><span class="w"> </span>release.
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>Summary:
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">  </span>PM:<span class="w"> </span>GO
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">  </span>QA:<span class="w"> </span>GO<span class="w"> </span><span class="o">(</span>tests:<span class="w"> </span><span class="m">142</span><span class="w"> </span>passed,<span class="w"> </span><span class="m">0</span><span class="w"> </span>failed<span class="o">)</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">  </span>Docs:<span class="w"> </span>GO<span class="w"> </span><span class="o">(</span>changelog<span class="w"> </span>updated<span class="o">)</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">  </span>Security:<span class="w"> </span>GO<span class="w"> </span><span class="o">(</span><span class="m">0</span><span class="w"> </span>vulnerabilities<span class="o">)</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>Release<span class="w"> </span>ready.<span class="w"> </span>Run<span class="w"> </span>with<span class="w"> </span>--execute<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>tag.
+</code></pre></div>
+<h2 id="comparison-agentkit-local-vs-google-adk">Comparison: AgentKit Local vs Google ADK<a class="headerlink" href="#comparison-agentkit-local-vs-google-adk" title="Permanent link">&para;</a></h2>
+<h3 id="why-not-just-use-google-adk">Why Not Just Use Google ADK?<a class="headerlink" href="#why-not-just-use-google-adk" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Google ADK</th>
+<th>AgentKit Local</th>
+<th>Gap Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LLM Provider</strong></td>
+<td>Gemini-focused</td>
+<td>Any via omnillm</td>
+<td><strong>High</strong> - Vendor lock-in unacceptable for enterprise</td>
+</tr>
+<tr>
+<td><strong>DAG Orchestration</strong></td>
+<td>Sequential, Parallel, Loop only</td>
+<td>Arbitrary DAG</td>
+<td><strong>High</strong> - Complex workflows need dependency graphs</td>
+</tr>
+<tr>
+<td><strong>Filesystem Tools</strong></td>
+<td>Not built-in</td>
+<td>Built-in, sandboxed</td>
+<td><strong>Medium</strong> - Must add manually with ADK</td>
+</tr>
+<tr>
+<td><strong>CLI Tool</strong></td>
+<td>No CLI entry point</td>
+<td><code>agent-cli</code> binary</td>
+<td><strong>High</strong> - Need standalone execution</td>
+</tr>
+<tr>
+<td><strong>Workflow Specs</strong></td>
+<td>Code-defined only</td>
+<td>JSON/YAML/Markdown specs</td>
+<td><strong>Medium</strong> - Specs enable non-code workflow definition</td>
+</tr>
+<tr>
+<td><strong>Memory Backend</strong></td>
+<td>In-memory, GORM</td>
+<td>In-memory, File, Redis</td>
+<td><strong>Low</strong> - Similar capabilities</td>
+</tr>
+<tr>
+<td><strong>MCP Support</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Parity</td>
+</tr>
+<tr>
+<td><strong>A2A Protocol</strong></td>
+<td>Yes</td>
+<td>Via agentkit/a2a</td>
+<td>Parity</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-adk-provides-that-we-leverage">What ADK Provides That We Leverage<a class="headerlink" href="#what-adk-provides-that-we-leverage" title="Permanent link">&para;</a></h3>
+<p>AgentKit already uses these ADK capabilities:</p>
+<ul>
+<li><strong>Agent interface patterns</strong> - <code>agent.Agent</code> interface design</li>
+<li><strong>Session management concepts</strong> - State scoping patterns</li>
+<li><strong>A2A protocol</strong> - Via <code>agentkit/a2a</code> package</li>
+</ul>
+<h3 id="what-we-build-beyond-adk">What We Build Beyond ADK<a class="headerlink" href="#what-we-build-beyond-adk" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAG executor</td>
+<td>Custom topological sort with parallel execution</td>
+</tr>
+<tr>
+<td>Spec loader</td>
+<td>Parse Markdown/JSON/YAML agent definitions</td>
+</tr>
+<tr>
+<td>CLI tool</td>
+<td>Standalone binary using platforms/local</td>
+</tr>
+<tr>
+<td>omnillm integration</td>
+<td>LLMClient implementation using omnillm.ChatClient</td>
+</tr>
+<tr>
+<td>Filesystem state</td>
+<td>JSON files in <code>.agent-state/</code></td>
+</tr>
+<tr>
+<td>Redis state</td>
+<td>KVS backend integration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="success-metrics">Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Measurement Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workflow execution success rate</td>
+<td>&gt; 99%</td>
+<td>Automated test suite</td>
+</tr>
+<tr>
+<td>Provider coverage</td>
+<td>5+ providers</td>
+<td>Integration tests per provider</td>
+</tr>
+<tr>
+<td>Spec format support</td>
+<td>3 formats</td>
+<td>JSON, YAML, Markdown parsing tests</td>
+</tr>
+<tr>
+<td>Documentation completeness</td>
+<td>100%</td>
+<td>All public APIs documented</td>
+</tr>
+<tr>
+<td>Example coverage</td>
+<td>3+ examples</td>
+<td>Working examples for common use cases</td>
+</tr>
+</tbody>
+</table>
+<h2 id="risks-and-mitigations">Risks and Mitigations<a class="headerlink" href="#risks-and-mitigations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Likelihood</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>omnillm API changes</td>
+<td>Medium</td>
+<td>High</td>
+<td>Pin version, integration tests</td>
+</tr>
+<tr>
+<td>Complex DAG edge cases</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Comprehensive test suite, cycle detection</td>
+</tr>
+<tr>
+<td>Tool security (shell execution)</td>
+<td>High</td>
+<td>High</td>
+<td>Workspace sandboxing, command allowlists</td>
+</tr>
+<tr>
+<td>Provider rate limits</td>
+<td>High</td>
+<td>Medium</td>
+<td>Retry with backoff, fallback providers</td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementation-phases">Implementation Phases<a class="headerlink" href="#implementation-phases" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-cli-foundation-p0">Phase 1: CLI Foundation (P0)<a class="headerlink" href="#phase-1-cli-foundation-p0" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>cmd/agent-cli/main.go</code> entry point</li>
+<li>[ ] omnillm-based LLMClient implementation</li>
+<li>[ ] Single agent execution via CLI</li>
+<li>[ ] Filesystem state backend</li>
+<li>[ ] multi-agent-spec agent loading (Markdown + YAML frontmatter)</li>
+</ul>
+<h3 id="phase-2-dag-orchestration-p0">Phase 2: DAG Orchestration (P0)<a class="headerlink" href="#phase-2-dag-orchestration-p0" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] multi-agent-spec team/workflow loading (JSON)</li>
+<li>[ ] DAG executor with topological sort</li>
+<li>[ ] Parallel execution of independent steps</li>
+<li>[ ] Typed port data flow between steps</li>
+<li>[ ] multi-agent-spec report generation (GO/WARN/NO-GO)</li>
+</ul>
+<h3 id="phase-3-enhanced-cli-features-p1">Phase 3: Enhanced CLI Features (P1)<a class="headerlink" href="#phase-3-enhanced-cli-features-p1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Redis state backend</li>
+<li>[ ] multi-agent-spec deployment config loading</li>
+<li>[ ] Per-agent model override via canonical mapping</li>
+<li>[ ] Conditional execution</li>
+<li>[ ] <code>agent-cli validate</code> for spec validation</li>
+</ul>
+<h3 id="phase-4-service-mode-p1">Phase 4: Service Mode (P1)<a class="headerlink" href="#phase-4-service-mode-p1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>cmd/agent-server/main.go</code> entry point</li>
+<li>[ ] HTTP API for workflow submission</li>
+<li>[ ] Streaming responses via SSE/WebSocket</li>
+<li>[ ] Session management with warm connections</li>
+<li>[ ] Health check and graceful shutdown</li>
+</ul>
+<h3 id="phase-5-polish-p2">Phase 5: Polish (P2)<a class="headerlink" href="#phase-5-polish-p2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Interactive REPL mode (<code>agent-cli interactive</code>)</li>
+<li>[ ] Tool approval workflow</li>
+<li>[ ] Custom tool registration</li>
+<li>[ ] MCP server integration for AI CLI tools</li>
+</ul>
+<h2 id="appendix-existing-implementation">Appendix: Existing Implementation<a class="headerlink" href="#appendix-existing-implementation" title="Permanent link">&para;</a></h2>
+<p>The <code>platforms/local/</code> package already provides:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Status</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config.go</code></td>
+<td>Complete</td>
+<td>YAML/JSON config loading, validation</td>
+</tr>
+<tr>
+<td><code>tools.go</code></td>
+<td>Complete</td>
+<td>Read, Write, Glob, Grep, Shell tools</td>
+</tr>
+<tr>
+<td><code>agent.go</code></td>
+<td>Complete</td>
+<td>EmbeddedAgent with tool-calling loop</td>
+</tr>
+<tr>
+<td><code>runner.go</code></td>
+<td>Partial</td>
+<td>Sequential and parallel execution (no DAG)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Estimated new code:</strong> ~600 lines Go</p>
+<ul>
+<li>CLI entry point: ~150 lines</li>
+<li>DAG executor: ~200 lines</li>
+<li>omnillm LLMClient: ~100 lines</li>
+<li>State backends: ~150 lines</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
