@@ -17,7 +17,7 @@
       "dependencies": [
         { "description": "Upgraded `github.com/plexusone/opik-go` to v0.6.0 (renamed from go-opik)", "commit": "1a619bb" },
         { "description": "Upgraded `github.com/plexusone/phoenix-go` to v0.2.0 (renamed from go-phoenix)", "commit": "1a619bb" },
-        { "description": "Upgraded `github.com/plexusone/omnillm` to v0.12.0", "commit": "1a619bb" },
+        { "description": "Upgraded `github.com/plexusone/omnillm` to v0.13.0", "commit": "1a619bb" },
         { "description": "Upgraded `github.com/plexusone/omniobserve` to v0.7.0", "commit": "1a619bb" },
         { "description": "Upgraded `github.com/plexusone/omnivault` to v0.3.0", "commit": "1a619bb" },
         { "description": "Upgraded `github.com/plexusone/vaultguard` to v0.3.0", "commit": "1a619bb" }
