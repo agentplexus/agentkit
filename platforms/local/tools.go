@@ -149,12 +149,15 @@ func (ts *ToolSet) GrepFiles(ctx context.Context, pattern, filePattern string) (
 			return nil // Skip errors
 		}
 
-		// Skip directories and hidden files
+		// Skip directories, hidden files, and symlinks (to avoid TOCTOU race)
 		if d.IsDir() {
 			if strings.HasPrefix(d.Name(), ".") && d.Name() != "." {
 				return filepath.SkipDir
 			}
 			return nil
+		}
+		if d.Type()&fs.ModeSymlink != 0 {
+			return nil // Skip symlinks
 		}
 
 		// Check file pattern if specified
@@ -166,6 +169,7 @@ func (ts *ToolSet) GrepFiles(ctx context.Context, pattern, filePattern string) (
 		}
 
 		// Read file content
+		// #nosec G122 -- Symlinks are skipped above; path is within workspace
 		content, err := os.ReadFile(path)
 		if err != nil {
 			return nil // Skip unreadable files

@@ -307,7 +307,8 @@ func run() error {
 	}
 
 	if *outputFile != "" {
-		if err := os.WriteFile(*outputFile, []byte(output), 0600); err != nil {
+		cleanPath := filepath.Clean(*outputFile)
+		if err := os.WriteFile(cleanPath, []byte(output), 0600); err != nil { // #nosec G703 -- User-provided CLI flag; path traversal is intentional
 			return fmt.Errorf("failed to write output file: %w", err)
 		}
 		if *verbose {
